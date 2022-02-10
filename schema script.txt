@@ -1,0 +1,34 @@
+CREATE SCHEMA `socialmedia` ;
+
+CREATE DATABASE IF NOT EXISTS socialmedia;
+use socialmedia;
+
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+username varchar(20) not null,
+password varchar(20) not null,
+primary key (username)
+);
+
+CREATE TABLE posts (
+post_id int(11) not null auto_increment,
+username varchar(20) not null,
+post_date date not null,
+post_content varchar(255) not null,
+primary key (post_id),
+foreign key (username) references users(username)
+);
+
+CREATE TABLE comments (
+comment_id int(11) not null auto_increment,
+username varchar(20) not null,
+post_id int(11) not null,
+comment_date date not null,
+comment_content varchar(255) not null,
+primary key (comment_id),
+foreign key (username) references users(username),
+foreign key (post_id) references posts(post_id)
+);
